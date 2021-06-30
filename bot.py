@@ -15,7 +15,8 @@ reddit = praw.Reddit(client_id=os.getenv('PERSONAL_SCRIPT'),
                      client_secret=os.getenv('SECRET'),
                      user_agent='oke',
                      username=os.getenv('REDDIT_USERNAME'),
-                     password=os.getenv('PASSWORD'))
+                     password=os.getenv('PASSWORD'),
+                     check_for_async=False)
 subreddit = reddit.subreddit('ProgrammerHumor')
 
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -61,7 +62,6 @@ async def on_command_error(ctx, error):
 
 @bot.command(name='send', help='It shoud send a pic')
 async def send_pic(ctx):
-    print('smh')
     e = discord.Embed()
     r = randint(1,100)
     for post in subreddit.top('week', limit = r):
