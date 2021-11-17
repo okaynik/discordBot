@@ -35,7 +35,7 @@ async def on_command_error(ctx, error = 'Something went terribly wrong cause And
 @bot.command(name='send', help='It shoud send a pic')
 async def send_pic(ctx, num = 1):
     if num > 3:
-        raise discord.ext.commands.CommandError(message = 'You can only send 5 pics at a time')
+        raise discord.ext.commands.CommandError(message = 'You can only send 3 pics at a time')
     for _ in range(int(num)):
         e = discord.Embed()
         r = randint(1,100)
