@@ -34,7 +34,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: production
+    environment: Production
     
     steps:
       - uses: actions/checkout@v2 
@@ -51,6 +51,5 @@ jobs:
             #Now we have got the access of EC2 and we will start the deploy .
             cd /home/ec2-user/discordBot &&
             git pull &&
-            pip install -r requirements.txt &&
             python3 bot.py
           '
