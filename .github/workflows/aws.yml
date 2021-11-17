@@ -26,10 +26,13 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i private_key ${USERNAME}@${HOSTNAME} '
           
             # Now we have got the access of EC2 and we will start the deploy
+            ls -tl
+            pwd
             cd discordBot &&
             git pull &&
             pip3 install -r requirements.txt &&
             cat bot.pid | xargs kill
             nohup python3 bot.py &
             echo $! > bot.pid
-            exit
+            exit 
+          '
