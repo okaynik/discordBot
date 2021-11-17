@@ -51,5 +51,8 @@ jobs:
             #Now we have got the access of EC2 and we will start the deploy .
             cd /home/ec2-user/discordBot &&
             git pull &&
-            python3 bot.py
+            pip3 install -r requirements.txt &&
+            cat bot.pid | xargs kill &&
+            nohup python3 bot.py & &&
+            echo $! > bot.pid
           '
