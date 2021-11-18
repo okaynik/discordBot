@@ -53,5 +53,12 @@ async def send_pic(ctx, num = 1):
 async def ex(ctx):
     raise discord.ext.commands.CommandError(message= 'Whoopsie...')
 
+@bot.command(name='wow')
+async def ex(ctx):
+    raise discord.ext.commands.CommandError(message= 'You\'re beautiful!')
+
+@bot.command(name='random')
+async def ex(ctx):
+    raise discord.ext.commands.CommandError(message= 'Why are there random commands in here?')
 
 bot.run(TOKEN)
