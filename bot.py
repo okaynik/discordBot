@@ -34,8 +34,6 @@ async def on_command_error(ctx, error = 'Something went terribly wrong cause And
 
 @bot.command(name='send', help='It shoud send a pic')
 async def send_pic(ctx, num = 1):
-    if not num.isdigit():
-        raise discord.ext.commands.CommandError(message = 'Please enter a number')
     if num > 3:
         raise discord.ext.commands.CommandError(message = 'You can only send 3 pics at a time')
     for _ in range(int(num)):
