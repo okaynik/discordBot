@@ -74,4 +74,8 @@ async def ex(ctx):
 async def ex(ctx):
     ctx.send('Why are there random commands in here?')
 
+@bot.command(name='andre')
+async def ex(ctx):
+    ctx.send('Andre is a terrbole programmer')
+
 bot.run(TOKEN)
