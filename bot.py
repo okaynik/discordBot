@@ -72,7 +72,14 @@ async def ex3(ctx):
 
 @bot.command(name='random')
 async def ex4(ctx):
-    await ctx.send('Why are there random commands in here?')
+    strs = ['Why are there random commands in here?',
+            'Yay!',
+            'Nikitaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!',
+            'Shhhhhhhh, don\'t tell Andrew',
+            'Nikita doesn\'t have to know',
+            'Monkey see, monkey do']
+    rand = randint(0, len(strs) - 1)
+    await ctx.send(strs[rand])
 
 @bot.command(name='andre', help='Send mean comment about Andre')
 async def ex5(ctx):
@@ -80,6 +87,6 @@ async def ex5(ctx):
 
 @bot.command(name='Nikita')
 async def ex6(ctx):
-    await ctx.send('@nikita is a terrible speller')
+    await ctx.send('@nikita is an interesting speller')
 
 bot.run(TOKEN)
