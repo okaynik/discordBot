@@ -36,6 +36,12 @@ async def on_command_error(ctx, error = 'Something went terribly wrong cause And
 async def send_pic(ctx, num = 1):
     if num > 3:
         raise discord.ext.commands.CommandError(message = 'You can only send 3 pics at a time')
+    if num == 0:
+        ctx.send('Okay')
+    if num == -1:
+        ctx.send('TODO: Delete last meme')
+    if num < -1:
+        ctx.send('TODO: Delete last ' + str(abs(num)) + ' memes')
     for _ in range(int(num)):
         e = discord.Embed()
         r = randint(1,100)
