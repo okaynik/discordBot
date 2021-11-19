@@ -36,33 +36,42 @@ async def on_command_error(ctx, error = 'Something went terribly wrong cause And
 async def send_pic(ctx, num = 1):
     if num > 3:
         raise discord.ext.commands.CommandError(message = 'You can only send 3 pics at a time')
-    if num == 0:
+    elif num == 0:
         ctx.send('Okay')
-    if num == -1:
+    elif num == -1:
         ctx.send('TODO: Delete last meme')
-    if num < -1:
+    elif num < -1:
         ctx.send('TODO: Delete last ' + str(abs(num)) + ' memes')
-    for _ in range(int(num)):
-        e = discord.Embed()
-        r = randint(1,100)
-        for post in subreddit.top('week', limit = r):
-            if post.url[8] == 'i':
-                title = post.title
-                url = post.url
-                # print(post.title, post.url)
-        e.set_image(url=url)
-        await ctx.send(title, embed=e)
+    elif num == 1235321:
+        ctx.send('Palindrome!')
+    elif num > 10000:
+        ctx.send('Are you trying to crash discord?')
+    else:
+        for _ in range(int(num)):
+            e = discord.Embed()
+            r = randint(1,100)
+            for post in subreddit.top('week', limit = r):
+                if post.url[8] == 'i':
+                    title = post.title
+                    url = post.url
+                    # print(post.title, post.url)
+            e.set_image(url=url)
+            await ctx.send(title, embed=e)
 
 @bot.command(name='raise')
 async def ex(ctx):
-    raise discord.ext.commands.CommandError(message= 'Whoopsie...')
+    ctx.send('Whoopsie...')
 
 @bot.command(name='wow')
 async def ex(ctx):
-    raise discord.ext.commands.CommandError(message= 'You\'re beautiful!')
+    ctx.send('You\'re beautiful!')
+
+@bot.command(name='bye')
+async def ex(ctx):
+    ctx.send('Have a nice day!')
 
 @bot.command(name='random')
 async def ex(ctx):
-    raise discord.ext.commands.CommandError(message= 'Why are there random commands in here?')
+    ctx.send('Why are there random commands in here?')
 
 bot.run(TOKEN)
