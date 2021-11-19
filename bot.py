@@ -59,23 +59,23 @@ async def send_pic(ctx, num = 1):
             await ctx.send(title, embed=e)
 
 @bot.command(name='raise')
-async def ex(ctx):
+async def ex1(ctx):
     ctx.send('Whoopsie...')
 
 @bot.command(name='wow')
-async def ex(ctx):
+async def ex2(ctx):
     ctx.send('You\'re beautiful!')
 
 @bot.command(name='bye')
-async def ex(ctx):
+async def ex3(ctx):
     ctx.send('Have a nice day!')
 
 @bot.command(name='random')
-async def ex(ctx):
+async def ex4(ctx):
     ctx.send('Why are there random commands in here?')
 
 @bot.command(name='andre')
-async def ex(ctx):
+async def ex5(ctx):
     ctx.send('Andre is a terrbole programmer')
 
 bot.run(TOKEN)
