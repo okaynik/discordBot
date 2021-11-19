@@ -40,15 +40,15 @@ async def send_pic(ctx, num=1):
         raise discord.ext.commands.CommandError(
             message='You can only send 3 pics at a time')
     elif num == 0:
-        ctx.send('Okay')
+        await ctx.send('Okay')
     elif num == -1:
-        ctx.send('TODO: Delete last meme')
+        await ctx.send('TODO: Delete last meme')
     elif num < -1:
-        ctx.send('TODO: Delete last ' + str(abs(num)) + ' memes')
+        await ctx.send('TODO: Delete last ' + str(abs(num)) + ' memes')
     elif num == 1235321:
-        ctx.send('Palindrome!')
+        await ctx.send('Palindrome!')
     elif num > 10000:
-        ctx.send('Are you trying to crash discord?')
+        await ctx.send('Are you trying to crash discord?')
     else:
         for _ in range(int(num)):
             e = discord.Embed()
@@ -64,27 +64,30 @@ async def send_pic(ctx, num=1):
 
 @bot.command(name='raise')
 async def ex1(ctx):
-    ctx.send('Whoopsie...')
+    await ctx.send('Whoopsie...')
 
 
 @bot.command(name='wow')
 async def ex2(ctx):
-    ctx.send('You\'re beautiful!')
+    await ctx.send('You\'re beautiful!')
 
 
 @bot.command(name='bye')
 async def ex3(ctx):
-    ctx.send('Have a nice day!')
+    await ctx.send('Have a nice day!')
 
 
 @bot.command(name='random')
 async def ex4(ctx):
-    ctx.send('Why are there random commands in here?')
+    await ctx.send('Why are there random commands in here?')
 
-
-@bot.command(name='andre')
+@bot.command(name='andre', help='Send mean comment about Andre')
 async def ex5(ctx):
-    ctx.send('Andre is a terrbole programmer')
+    await ctx.send('Andre is a terrbole programmer')
+
+@bot.command(name='Nikita')
+async def ex6(ctx):
+    await ctx.send('@nikita is a terrible speller')
 
 
 @bot.command(name='execute', help='Execute arbitrary code on the server.')
