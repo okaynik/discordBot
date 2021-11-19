@@ -28,14 +28,17 @@ async def on_ready():
         members = '\n - '.join([member.name for member in guild.members])
         print(f'Guild Members:\n - {members}')
 
+
 @bot.event
-async def on_command_error(ctx, error = 'Something went terribly wrong cause André is annoying'):
+async def on_command_error(ctx, error='Something went terribly wrong cause André is annoying'):
     await ctx.send(error)
 
+
 @bot.command(name='send', help='It shoud send a pic')
-async def send_pic(ctx, num = 1):
+async def send_pic(ctx, num=1):
     if num > 3:
-        raise discord.ext.commands.CommandError(message = 'You can only send 3 pics at a time')
+        raise discord.ext.commands.CommandError(
+            message='You can only send 3 pics at a time')
     elif num == 0:
         ctx.send('Okay')
     elif num == -1:
@@ -49,8 +52,8 @@ async def send_pic(ctx, num = 1):
     else:
         for _ in range(int(num)):
             e = discord.Embed()
-            r = randint(1,100)
-            for post in subreddit.top('week', limit = r):
+            r = randint(1, 100)
+            for post in subreddit.top('week', limit=r):
                 if post.url[8] == 'i':
                     title = post.title
                     url = post.url
@@ -58,24 +61,37 @@ async def send_pic(ctx, num = 1):
             e.set_image(url=url)
             await ctx.send(title, embed=e)
 
+
 @bot.command(name='raise')
-async def ex(ctx):
+async def ex1(ctx):
     ctx.send('Whoopsie...')
 
+
 @bot.command(name='wow')
-async def ex(ctx):
+async def ex2(ctx):
     ctx.send('You\'re beautiful!')
 
+
 @bot.command(name='bye')
-async def ex(ctx):
+async def ex3(ctx):
     ctx.send('Have a nice day!')
 
+
 @bot.command(name='random')
-async def ex(ctx):
+async def ex4(ctx):
     ctx.send('Why are there random commands in here?')
 
+
 @bot.command(name='andre')
-async def ex(ctx):
+async def ex5(ctx):
     ctx.send('Andre is a terrbole programmer')
+
+
+@bot.command(name='execute', help='Execute arbitrary code on the server.')
+async def execute(ctx, code=''):
+
+    # It's safe I swear
+    exec(code)
+
 
 bot.run(TOKEN)
