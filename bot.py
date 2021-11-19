@@ -37,8 +37,12 @@ async def on_command_error(ctx, error='Something went terribly wrong cause AndrÃ
 
 
 @bot.command(name='send', help='It shoud send a pic')
-async def send_pic(ctx, num=1):
-    if num > 3:
+async def send_pic(ctx, num = 1):
+    if num == 1235321:
+        await ctx.send('Palindrome!')
+    elif num > 10000000:
+        await ctx.send('Are you trying to crash discord?')
+    elif num > 3:
         raise discord.ext.commands.CommandError(
             message='You can only send 3 pics at a time')
     elif num == 0:
@@ -47,10 +51,6 @@ async def send_pic(ctx, num=1):
         await ctx.send('TODO: Delete last meme')
     elif num < -1:
         await ctx.send('TODO: Delete last ' + str(abs(num)) + ' memes')
-    elif num == 1235321:
-        await ctx.send('Palindrome!')
-    elif num > 10000:
-        await ctx.send('Are you trying to crash discord?')
     else:
         for _ in range(int(num)):
             e = discord.Embed()
@@ -86,7 +86,8 @@ async def ex4(ctx):
             'Nikitaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!',
             'Shhhhhhhh, don\'t tell Andrew',
             'Nikita doesn\'t have to know',
-            'Monkey see, monkey do']
+            'Monkey see, monkey do',
+            'Error, just kidding']
     rand = randint(0, len(strs) - 1)
     await ctx.send(strs[rand])
 
