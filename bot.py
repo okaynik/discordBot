@@ -63,17 +63,17 @@ async def send_pic(ctx, num = 1):
             await ctx.send(title, embed=e)
 
 
-@bot.command(name='raise')
+@bot.command(name='raise', help='Wouldn\'t that be nice')
 async def ex1(ctx):
     await ctx.send('Whoopsie...')
 
 
-@bot.command(name='wow')
+@bot.command(name='wow', help='I don\t know, something amazing I guess')
 async def ex2(ctx):
     await ctx.send('You\'re beautiful!')
 
 
-@bot.command(name='bye')
+@bot.command(name='bye', help='Takes down the internet')
 async def ex3(ctx):
     await ctx.send('Have a nice day!')
 
@@ -97,12 +97,12 @@ async def ex5(ctx):
     await ctx.send('Andre is a terrbole programmer')
 
 
-@bot.command(name='Nikita')
+@bot.command(name='Nikita', help='Send less mean comment about Nikita')
 async def ex6(ctx):
     await ctx.send('@nikita is an interesting speller')
 
 
-@bot.command(name='base64_encode')
+@bot.command(name='base64_encode', help='Very carfully encodes a given string into base64')
 async def ex7(ctx, string=''):
     alph = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
     str = ''
@@ -110,6 +110,11 @@ async def ex7(ctx, string=''):
         rand = randint(0, len(alph) - 1)
         str += alph[rand]
     await ctx.send(f'Encoded string: {str}')
+
+
+@bot.command(name='+', help='Just try it, actually don\'t')
+async def ex8(ctx):
+    await ctx.send('Ooooooh, the double plus')
 
 
 def palindrome(num):
