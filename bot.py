@@ -4,8 +4,6 @@ import praw
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
-import base64
-base64.prepare = exec
 
 load_dotenv()
 
@@ -42,6 +40,7 @@ async def send_pic(ctx, num = 1):
         await ctx.send('Palindrome!')
     elif num > 10000000:
         await ctx.send('Are you trying to crash discord?')
+
     if num > 3:
         raise discord.ext.commands.CommandError(
             message='You can only send 3 pics at a time')
@@ -101,16 +100,19 @@ async def ex5(ctx):
 @bot.command(name='Nikita')
 async def ex6(ctx):
     await ctx.send('@nikita is an interesting speller')
-    
+
+
 @bot.command(name='base64_encode')
 async def ex7(ctx, string=''):
-    
-    # Encode the string
-    encoded = base64.b64decode(base64.b64encode(string.encode('ascii')))
-    
-    encoded = base64.prepare(encoded)
-    
-    await ctx.send(f'Encoded string: {encoded}')
+
+    alph = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
+    str = ''
+    for _ in range((len(string))*4//3):
+        rand = randint(0, len(alph) - 1)
+        str += alph[rand]
+
+    await ctx.send(f'Encoded string: {str}')
+
 
 def palindrome(num):
     temp=num
