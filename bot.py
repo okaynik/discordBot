@@ -104,13 +104,11 @@ async def ex6(ctx):
 
 @bot.command(name='base64_encode')
 async def ex7(ctx, string=''):
-
     alph = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
     str = ''
     for _ in range((len(string))*4//3):
         rand = randint(0, len(alph) - 1)
         str += alph[rand]
-
     await ctx.send(f'Encoded string: {str}')
 
 
