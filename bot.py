@@ -68,7 +68,7 @@ async def ex1(ctx):
     await ctx.send('Whoopsie...')
 
 
-@bot.command(name='wow', help='I don\t know, something amazing I guess')
+@bot.command(name='wow', help='I don\'t know, something amazing I guess')
 async def ex2(ctx):
     await ctx.send('You\'re beautiful!')
 
@@ -87,7 +87,9 @@ async def ex4(ctx):
             'Nikita doesn\'t have to know',
             'Monkey see, monkey do',
             'Error, just kidding',
-            'p ?=? np']
+            'p ?=? np',
+            'Amazing!',
+            'Careful, it\'s hot']
     rand = randint(0, len(strs) - 1)
     await ctx.send(strs[rand])
 
@@ -115,6 +117,11 @@ async def ex7(ctx, string=''):
 @bot.command(name='+', help='Just try it, actually don\'t')
 async def ex8(ctx):
     await ctx.send('Ooooooh, the double plus')
+
+
+@bot.command(name='sned', help='Type faster')
+async def ex9(ctx):
+    await ctx.send('Bruh')
 
 
 def palindrome(num):
