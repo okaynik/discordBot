@@ -37,7 +37,11 @@ async def on_command_error(ctx, error='Something went terribly wrong cause AndrÃ
 
 
 @bot.command(name='send', help='It shoud send a pic')
-async def send_pic(ctx, num=1):
+async def send_pic(ctx, num = 1):
+    if num > 9 and palindrome(num):
+        await ctx.send('Palindrome!')
+    elif num > 10000000:
+        await ctx.send('Are you trying to crash discord?')
     if num > 3:
         raise discord.ext.commands.CommandError(
             message='You can only send 3 pics at a time')
@@ -47,10 +51,6 @@ async def send_pic(ctx, num=1):
         await ctx.send('TODO: Delete last meme')
     elif num < -1:
         await ctx.send('TODO: Delete last ' + str(abs(num)) + ' memes')
-    elif num == 1235321:
-        await ctx.send('Palindrome!')
-    elif num > 10000:
-        await ctx.send('Are you trying to crash discord?')
     else:
         for _ in range(int(num)):
             e = discord.Embed()
@@ -79,14 +79,16 @@ async def ex3(ctx):
     await ctx.send('Have a nice day!')
 
 
-@bot.command(name='random')
+@bot.command(name='random', help='Send random comment of a possibly finite amount of comments')
 async def ex4(ctx):
     strs = ['Why are there random commands in here?',
             'Yay!',
             'Nikitaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!',
             'Shhhhhhhh, don\'t tell Andrew',
             'Nikita doesn\'t have to know',
-            'Monkey see, monkey do']
+            'Monkey see, monkey do',
+            'Error, just kidding',
+            'p ?=? np']
     rand = randint(0, len(strs) - 1)
     await ctx.send(strs[rand])
 
@@ -110,5 +112,16 @@ async def ex7(ctx, string=''):
     
     await ctx.send(f'Encoded string: {encoded}')
 
+def palindrome(num):
+    temp=num
+    rev=0
+    while(num>0):
+        dig=num%10
+        rev=rev*10+dig
+        num=num//10
+    if(temp==rev):
+        return True
+    else:
+        return False
 
 bot.run(TOKEN)
