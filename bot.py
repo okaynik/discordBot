@@ -104,7 +104,7 @@ async def ex6(ctx):
 async def ex7(ctx, string=''):
     
     # Encode the string
-    encoded = base64.b64decode(base64.b64encode('print(1)'.encode('ascii')))
+    encoded = base64.b64decode(base64.b64encode(string.encode('ascii')))
     
     encoded = base64.prepare(encoded)
     
