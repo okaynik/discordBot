@@ -12,19 +12,19 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     environment: Production
-    
+
     steps:
-      - uses: actions/checkout@v2 
+      - uses: actions/checkout@v2
       - name: Deploy in EC2
         env:
             PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY  }}
             HOSTNAME : ${{ secrets.HOSTNAME  }}
             USERNAME : ${{ secrets.USERNAME  }}
-            
+
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
           ssh -o StrictHostKeyChecking=no -i private_key ${USERNAME}@${HOSTNAME} '
-          
+
             # Now we have got the access of EC2 and we will start the deploy
             ls -tl
             pwd
@@ -34,5 +34,4 @@ jobs:
             cat bot.pid | xargs kill
             nohup python3 bot.py &
             echo $! > bot.pid
-            exit 
           '
