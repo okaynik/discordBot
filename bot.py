@@ -151,7 +151,7 @@ def callGPT3(question):
 
     response = openai.Completion.create(
         engine="davinci",
-        prompt= restart_sequence + q1 + start_sequence + a1 + restart_sequence + q2 + start_sequence + a2 + restart_sequence + question + start_sequence,
+        prompt= "Q: " + q1 + start_sequence + a1 + restart_sequence + q2 + start_sequence + a2 + restart_sequence + question + start_sequence,
         temperature=0,
         max_tokens=60,
         top_p=1,
