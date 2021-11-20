@@ -151,7 +151,7 @@ def callGPT3(question):
         stop=["\n"]
     )
 
-    return response.choices[0].text
+    return "GTP-3: " + response.choices[0].text
 
 
 def palindrome(num):
