@@ -23,12 +23,14 @@ jobs:
 
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${USERNAME}@${HOSTNAME}
-          ls -tl
-          pwd
-          cd discordBot &&
-          git pull &&
-          pip3 install -r requirements.txt &&
-          cat bot.pid | xargs kill
-          nohup python3 bot.py &
-          echo $! > bot.pid
+          ssh -o StrictHostKeyChecking=no -i private_key ${USERNAME}@${HOSTNAME} '
+
+            ls -tl
+            pwd
+            cd discordBot &&
+            git pull &&
+            pip3 install -r requirements.txt &&
+            cat bot.pid | xargs kill
+            nohup python3 bot.py &
+            echo $! > bot.pid
+          '
