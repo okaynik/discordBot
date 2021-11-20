@@ -129,9 +129,13 @@ async def ex9(ctx):
 @bot.command(name='q', help='Ask GPT-3 open AI a question')
 async def ex10(ctx, str = ""):
     if str == "":
-        await ctx.send('Please enter a question (format): +q <question>')
+        await ctx.send('Please enter a question, format: +q "<question>"')
     else:
-        await ctx.send(callGPT3(str))
+        response = callGPT3(str)
+        if response == "":
+            await ctx.send("I am floored, nothing to say...")
+        else:
+            await ctx.send(response)
 
 
 def callGPT3(question):
@@ -151,7 +155,7 @@ def callGPT3(question):
         stop=["\n"]
     )
 
-    return "GTP-3: " + response.choices[0].text
+    return response.choices[0].text
 
 
 def palindrome(num):
