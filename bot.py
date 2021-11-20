@@ -103,7 +103,7 @@ async def ex5(ctx):
 
 @bot.command(name='Nikita', help='Send less mean comment about Nikita')
 async def ex6(ctx):
-    await ctx.send('@nikita is an interesting speller')
+    await ctx.send('@Nikita is an interesting speller')
 
 
 @bot.command(name='base64_encode', help='Very carfully encodes a given string into base64')
@@ -142,11 +142,16 @@ def callGPT3(question):
     start_sequence = "\nA: "
     restart_sequence = "\n\nQ: "
 
-    str = "I am a highly intelligent question answering bot. If you ask me a question that is rooted in truth, I will give you the answer. If you ask me a question that is nonsense, trickery, or has no clear answer, I will respond with \"IDK bro\"." + restart_sequence + question + start_sequence
+    q1 = "What's the distance between the Earth and the Sun?"
+    a1 = "93 million miles or 8.5 light minutes"
+    q2 = "What is the airspeed velocity of an unladen swallow?"
+    a2 = "What do you mean? An African or European swallow?"
+
+    # str = "I am a highly intelligent question answering bot. If you ask me a question that is rooted in truth, I will give you the answer. If you ask me a question that is nonsense, trickery, or has no clear answer, I will respond with \"IDK bro\"." + restart_sequence + question + start_sequence
 
     response = openai.Completion.create(
         engine="davinci",
-        prompt=str,
+        prompt= restart_sequence + q1 + start_sequence + a1 + restart_sequence + q2 + start_sequence + a2 + restart_sequence + question + start_sequence,
         temperature=0,
         max_tokens=60,
         top_p=1,
