@@ -4,6 +4,7 @@ import praw
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
+import openai
 
 load_dotenv()
 
@@ -16,6 +17,7 @@ reddit = praw.Reddit(client_id=os.getenv('PERSONAL_SCRIPT'),
 subreddit = reddit.subreddit('ProgrammerHumor')
 
 TOKEN = os.getenv('DISCORD_TOKEN')
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 bot = commands.Bot(command_prefix='+')
 
@@ -124,6 +126,34 @@ async def ex9(ctx):
     await ctx.send('Bruh')
 
 
+@bot.command(name='q', help='Ask GPT-3 open AI a question')
+async def ex10(ctx, str = ""):
+    if str == "":
+        await ctx.send('Please enter a question (format): +q <question>')
+    else:
+        await ctx.send(callGPT3(str))
+
+
+def callGPT3(question):
+    start_sequence = "\nA: "
+    restart_sequence = "\n\nQ: "
+
+    str = "I am a highly intelligent question answering bot. If you ask me a question that is rooted in truth, I will give you the answer. If you ask me a question that is nonsense, trickery, or has no clear answer, I will respond with \"IDK bro\"." + restart_sequence + question + start_sequence
+
+    response = openai.Completion.create(
+        engine="davinci",
+        prompt=str,
+        temperature=0,
+        max_tokens=60,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0,
+        stop=["\n"]
+    )
+
+    return response.choices[0].text
+
+
 def palindrome(num):
     temp=num
     rev=0
@@ -131,9 +161,6 @@ def palindrome(num):
         dig=num%10
         rev=rev*10+dig
         num=num//10
-    if(temp==rev):
-        return True
-    else:
-        return False
+    return (temp == rev)
 
 bot.run(TOKEN)
