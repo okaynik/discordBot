@@ -144,14 +144,18 @@ def callGPT3(question):
 
     q1 = "What's the distance between the Earth and the Sun?"
     a1 = "93 million miles or 8.5 light minutes"
-    q2 = "What is the airspeed velocity of an unladen swallow?"
-    a2 = "What do you mean? An African or European swallow?"
+    q2 = "What's 4 squared?"
+    a2 = "16"
+    q3 = "How much mass does an electron have?"
+    a3 = "9.10938356 × 10^(-31) kilograms"
+    # q2 = "What is the airspeed velocity of an unladen swallow?"
+    # a2 = "What do you mean? An African or European swallow?"
 
     # str = "I am a highly intelligent question answering bot. If you ask me a question that is rooted in truth, I will give you the answer. If you ask me a question that is nonsense, trickery, or has no clear answer, I will respond with \"IDK bro\"." + restart_sequence + question + start_sequence
 
     response = openai.Completion.create(
         engine="davinci",
-        prompt= "Q: " + q1 + start_sequence + a1 + restart_sequence + q2 + start_sequence + a2 + restart_sequence + question + start_sequence,
+        prompt= "Q: " + q1 + start_sequence + a1 + restart_sequence + q2 + start_sequence + a2 + restart_sequence + q3 + start_sequence + a3 + restart_sequence + question + start_sequence,
         temperature=0,
         max_tokens=60,
         top_p=1,
