@@ -1,0 +1,34 @@
+name: Deploy to Amazon ECS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy to ec2
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      
+    - name: Deploy to the Server
+      env:
+        PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY  }}
+        HOSTNAME : ${{ secrets.HOSTNAME  }}
+        USERNAME : ${{ secrets.USERNAME  }}
+      run: |
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${USERNAME}@${HOSTNAME} '
+            ls -tl
+            pwd
+            cd discordBot &&
+            git pull &&
+            pip3 install -r requirements.txt &&
+            cat bot.pid | xargs kill
+            nohup python3 bot.py &
+            echo $! > bot.pid
+          '
