@@ -16,19 +16,9 @@ jobs:
       uses: actions/checkout@v3
       
     - name: Deploy to the Server
+      uses: easingthemes/ssh-deploy@main
       env:
-        PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY  }}
-        HOSTNAME : ${{ secrets.HOSTNAME  }}
-        USERNAME : ${{ secrets.USERNAME  }}
-      run: |
-          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${USERNAME}@${HOSTNAME} '
-            ls -tl
-            pwd
-            cd discordBot &&
-            git pull &&
-            pip3 install -r requirements.txt &&
-            cat bot.pid | xargs kill
-            nohup python3 bot.py &
-            echo $! > bot.pid
-          '
+        SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+        REMOTE_HOST: ${{ secrets.HOSTNAME }}
+        REMOTE_USER: ${{ secrets.USERNAME }}
+        TARGET: ~/discordBot/
