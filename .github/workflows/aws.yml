@@ -14,11 +14,17 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
-      
-    - name: Deploy to the Server
-      uses: easingthemes/ssh-deploy@main
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
-        REMOTE_HOST: ${{ secrets.HOSTNAME }}
-        REMOTE_USER: ${{ secrets.USERNAME }}
-        TARGET: ~/discordBot/
+
+    - name: Deploying to EC2
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOSTNAME }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.EC2_SSH_KEY }}
+        script: |
+          cd discordBot
+          git pull
+          pip3 install -r requirements.txt &&
+          cat bot.pid | xargs kill
+          nohup python3 bot.py &
+          echo $! > bot.pid
