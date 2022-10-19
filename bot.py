@@ -26,7 +26,8 @@ TOKEN = os.getenv("DISCORD_TOKEN")
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # Set the prefix
-bot = commands.Bot(command_prefix="+")
+bot = commands.Bot(command_prefix="+", intents=discord.Intents.all())
+
 
 @bot.event
 async def on_ready():
@@ -36,6 +37,7 @@ async def on_ready():
         # members = "\n - ".join([member.name for member in guild.members])
         # print(f"Guild Members:\n - {members}")
 
+
 # Excetion handler
 @bot.event
 async def on_command_error(
@@ -43,9 +45,10 @@ async def on_command_error(
 ):
     await ctx.send(error)
 
+
 # Send a meme from reddit
 @bot.command(name="send", help="It shoud send a pic")
-async def send_pic(ctx, num = 1):
+async def send_pic(ctx, num=1):
     if num > 3:
         raise discord.ext.commands.CommandError(
             message="You can only send 3 pics at a time"
@@ -60,18 +63,20 @@ async def send_pic(ctx, num = 1):
             e = discord.Embed()
             r = randint(1, 100)
             # Really hacky way to get a random post. TODO: make this better
-            for post in subreddit.top("week", limit = r):
+            for post in subreddit.top(time_filter="week", limit=r):
                 # Check if post is a picture
                 if post.url[8] == "i":
                     title = post.title
                     url = post.url
-            e.set_image(url = url)
-            await ctx.send(title, embed = e)
+            e.set_image(url=url)
+            await ctx.send(title, embed=e)
+
 
 # Test exception handler
 @bot.command(name="raise", help="Test exception handler")
 async def raise_exception(ctx):
     raise discord.ext.commands.CommandError("Whoopsie...")
+
 
 # GPT-3 question answering
 @bot.command(name="q", help='Ask GPT-3 open AI a question, format: +q "<question>"')
@@ -88,6 +93,7 @@ async def question(ctx, str=""):
             await ctx.send("I am floored, nothing to say...")
         else:
             await ctx.send(response)
+
 
 def callGPT3(question):
     start_sequence = "\nA: "
@@ -106,9 +112,11 @@ def callGPT3(question):
 
     return response.choices[0].text
 
+
 @bot.command(name="compliment", help="I don't know, something amazing I guess")
 async def compliment(ctx):
     await ctx.send("You're beautiful!")
+
 
 @bot.command(
     name="random", help="Send random comment of a possibly finite amount of comments"
@@ -138,6 +146,7 @@ async def ex1(ctx):
 async def ex2(ctx):
     await ctx.send("Nikita is an interesting speller")
 
+
 @bot.command(
     name="base64_encode", help="Very carfully encodes a given string into base64"
 )
@@ -148,5 +157,6 @@ async def ex3(ctx, string=""):
         rand = randint(0, len(alph) - 1)
         str += alph[rand]
     await ctx.send(f"Encoded string: {str}")
+
 
 bot.run(TOKEN)
