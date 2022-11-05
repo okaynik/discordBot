@@ -118,6 +118,7 @@ async def img_gen(ctx, *args):
     if value == "":
         await ctx.send("Please enter a prompt, format: +img <prompt>")
     else:
+        await ctx.send("Generating image...")
         response = openai.Image.create(
                 prompt=value,
                 n=1,
