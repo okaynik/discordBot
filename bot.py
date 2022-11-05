@@ -112,6 +112,21 @@ def callGPT3(question):
 
     return response.choices[0].text
 
+@bot.command(name="img", help="DALL-E image generation")
+async def img_gen(ctx, *args):
+    value = " ".join(args)
+    if value == "":
+        await ctx.send("Please enter a prompt, format: +img <prompt>")
+    else:
+        response = openai.Image.create(
+                prompt=value,
+                n=1,
+                size="1024x1024"
+                )
+        image_url = response['data'][0]['url']
+        e = discord.Embed()
+        e.set_image(url=image_url)
+        await ctx.send("here is your image", embed=e)
 
 @bot.command(name="compliment", help="I don't know, something amazing I guess")
 async def compliment(ctx):
