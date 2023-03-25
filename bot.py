@@ -79,7 +79,7 @@ async def raise_exception(ctx):
 
 
 # GPT-3 question answering
-@bot.command(name="q", help='Ask GPT-3 open AI a question, format: +q "<question>"')
+@bot.command(name="q", help='Ask GPT-4 open AI a question, format: +q "<question>"')
 async def question(ctx, str=""):
     if str == "":
         await ctx.send('Please enter a question, format: +q "<question>"')
@@ -96,12 +96,12 @@ async def question(ctx, str=""):
 
 
 def callGPT3(question):
-    start_sequence = "\nA: "
+    # start_sequence = "\nA: "
     # restart_sequence = "\n\nQ: "
 
-    response = openai.Completion.create(
-        engine="davinci",
-        prompt=question + start_sequence,
+    response = openai.ChatCompletion.create(
+        model="gpt-4",
+        messages=[{"content": question, "role": "user"}],
         temperature=0,
         max_tokens=60,
         top_p=1,
@@ -110,7 +110,9 @@ def callGPT3(question):
         stop=["\n"],
     )
 
-    return response.choices[0].text
+    # print(response.choices[0].text)
+
+    return response.choices[0].message.content
 
 @bot.command(name="img", help="DALL-E image generation")
 async def img_gen(ctx, *args):
